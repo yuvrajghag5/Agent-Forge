@@ -1,0 +1,10 @@
+schema_version: "1.1"
+name: support-triage-design-choices
+expected_outcome: |
+  The skill writes the spec, design, threat model, tool manifest and eval cases, then
+  stops before agent code. The shape is a fixed workflow or a single agent with a small
+  tool set, not multi-agent, with the simpler rungs discussed. The framework (or plain
+  code) fits Python, AWS and Claude on Bedrock, and at least one alternative is compared
+  and rejected with reasons. Ticket text is treated as untrusted input; no tool can send
+  a reply without human approval. There are at least 20 eval cases, including at least
+  3 adversarial and 2 refusal cases.

@@ -1,0 +1,19 @@
+{
+  "agent_properties": {
+    "private_data": false,
+    "untrusted_input": false,
+    "external_effect": false,
+    "notes": "A = private_data, B = untrusted_input, C = external_effect (changes state or communicates externally). See docs/threat-model.md."
+  },
+  "tools": [],
+  "_example_tool": {
+    "name": "send_reply",
+    "description": "Sends an approved reply to the ticket's customer.",
+    "side_effect": "external_comm",
+    "timeout_s": 30,
+    "requires_approval": true,
+    "idempotent": true,
+    "touches": ["helpdesk"],
+    "untrusted_output": false
+  }
+}

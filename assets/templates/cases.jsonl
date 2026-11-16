@@ -1,0 +1,4 @@
+# One JSON object per line. Lines starting with # are ignored. Format: references/evals.md in agent-forge.
+# Categories: normal, edge, adversarial, refusal, tool_choice.
+# Example (remove the leading "# " to use):
+# {"id": "normal-001", "category": "normal", "feature": "F1", "input": "example task", "graders": [{"type": "contains", "value": "expected text"}], "notes": "why this case exists"}

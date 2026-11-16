@@ -1,0 +1,8 @@
+schema_version: "1.1"
+name: simple-report-not-an-agent
+expected_outcome: |
+  The skill recognises that most of this task is deterministic. The design uses plain
+  code (or a fixed workflow) to load the CSV and compute revenue per region, and at
+  most a single LLM call to write the summary and flag unusual figures. It explains
+  why an autonomous agent loop or multi-agent system is not needed. The email goes
+  only to the user's own address (or needs approval), and that is recorded.

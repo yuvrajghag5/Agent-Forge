@@ -1,0 +1,9 @@
+{
+  "command": ["python", "-m", "TODO_agent_package.cli"],
+  "input_mode": "stdin",
+  "output_format": "json",
+  "timeout_s": 120,
+  "trials": 1,
+  "env": {"FORGE_EVAL": "1"},
+  "thresholds": {}
+}
