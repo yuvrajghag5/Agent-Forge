@@ -10,7 +10,9 @@ instead of jumping straight to code.
 
 ## What it does
 
-The coding agent takes the idea through eleven phases, with three human checkpoints:
+It always starts by asking which folder is the **trusted workspace** for the project; everything it
+creates, installs and runs stays inside that folder. Then the coding agent takes the idea through
+eleven phases, with three human checkpoints:
 
 | # | Phase | Output |
 |---|---|---|

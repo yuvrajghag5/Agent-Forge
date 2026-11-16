@@ -35,19 +35,33 @@ can be checked, resumed in a later session, and trusted.
 
 ## Getting oriented (every session)
 
-1. **Resuming?** If `forge/state.json` exists in the project, read it and `forge/progress.md`
-   first and continue at the recorded phase. Never restart a project that is in progress.
-2. **New project:** create the layout and state file:
-   `python <skill-dir>/scripts/forge.py init --name <agent-slug> --tier <tier> --mode <mode>`
+1. **Ask for the trusted workspace — every time the skill is used.** Before anything else, ask
+   the user which folder is the trusted workspace for this project, for example:
+   *"Which folder should I use as the trusted workspace for this agent? Everything I create —
+   code, docs, the virtual environment, eval runs — will stay inside it. (default: a new folder
+   `<agent-slug>` inside the current folder)"*.
+   Building an agent means creating files, installing packages and running code; one explicit
+   folder keeps that work away from unrelated files and makes every action easy to review.
+   From then on, create, edit, install and run things **only inside that folder**. If something
+   outside it is needed (a dataset, an existing codebase, a system-wide install), ask first.
+   Ask this together with the intake questions if there are any; it does not count toward
+   their limit of five. If the user already named the folder in their request, confirm it
+   instead of asking again.
+2. **Resuming?** If `forge/state.json` exists in the workspace, read it and `forge/progress.md`
+   first and continue at the recorded phase. Show the user the workspace recorded there and
+   confirm it is still the one to use. Never restart a project that is in progress.
+3. **New project:** create the layout and state file inside the workspace:
+   `python <skill-dir>/scripts/forge.py init --project <workspace> --name <agent-slug> --tier <tier> --mode <mode>`
    (`<skill-dir>` is the folder this SKILL.md is in; use `py` instead of `python` on Windows if
-   needed). It copies templates without overwriting existing files.
-3. **Execution mode — who runs code.** Default `agent_runs`. If the user, or their instruction
+   needed). It records the workspace's absolute path in `forge/state.json` and copies templates
+   without overwriting existing files.
+4. **Execution mode — who runs code.** Default `agent_runs`. If the user, or their instruction
    files (CLAUDE.md, AGENTS.md, saved memories), say they run code themselves, use
    `human_runs`: write the exact command, stop, and wait for them to paste the output before
    continuing. This applies to the skill's own scripts too.
-4. **Tier.** Use the tier the user names. Otherwise default to **pilot** and record it as an
+5. **Tier.** Use the tier the user names. Otherwise default to **pilot** and record it as an
    assumption. Tiers are defined in `references/readiness-gate.md`.
-5. At the end of every working session, append an entry to `forge/progress.md` (what was done,
+6. At the end of every working session, append an entry to `forge/progress.md` (what was done,
    what is next, open issues) and update `forge/state.json`. The next session depends on it.
 
 Scripts are Python 3.9+ with the standard library only, so they run anywhere the user has Python.
@@ -55,8 +69,10 @@ Scripts are Python 3.9+ with the standard library only, so they run anywhere the
 
 ## Project layout this skill creates
 
+All of it lives inside the trusted workspace the user chose.
+
 ```
-<project>/
+<workspace>/
   docs/spec.md            what the agent does, for whom, assumptions, v1 scope
   docs/design.md          shape, framework, harness decisions and their reasons
   docs/threat-model.md    data, inputs, tool classes, Rule of Two, controls
@@ -224,9 +240,10 @@ it would take to close the gap.
 
 ## When the user is not available
 
-In unattended runs (CI, a background job), do not block at checkpoints forever. Proceed with
-defaults, record `forge.py approve <checkpoint> --by auto`, and list everything that still needs a
-human decision at the top of the final report.
+In unattended runs (CI, a background job), do not block at checkpoints forever. Use the current
+folder as the workspace and record that as an assumption, proceed with defaults, record
+`forge.py approve <checkpoint> --by auto`, and list everything that still needs a human decision
+at the top of the final report.
 
 ## Taking over an existing prototype
 

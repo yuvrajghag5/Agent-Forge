@@ -82,3 +82,25 @@ Per phase: 1. what was built, 2. issues faced, 3. how they were solved.
 - `environment.md` tells the agent to choose an interpreter every package supports and to ask the
   user to install a missing version rather than installing it itself.
 - The `setup_env.py` failure needs a re-run with its output captured (open).
+
+## Phase 2c — Trusted workspace question (Nov 2026)
+
+**1. Built**
+- Every use of the skill now starts by asking which folder is the trusted workspace for the
+  project (default: a new folder named after the agent inside the current folder). It is asked
+  together with the intake questions and does not count toward their limit of five.
+- All files, the virtual environment, eval runs and commands stay inside that folder; anything
+  outside needs the user's OK. Unattended runs use the current folder and record it as an
+  assumption.
+- `forge.py init` records the absolute path as `workspace` in `forge/state.json`;
+  `forge.py status` prints it and warns when run from a different folder.
+- Test cases: the vague-idea case checks the workspace question is asked; the two design cases
+  name the workspace in the prompt, and one checks that every file stays inside it.
+
+**2. Issues faced**
+- The vague-idea test limited the response to five questions in total, which the new question
+  would break.
+
+**3. How they were solved**
+- The limit now applies to intake questions only; the workspace question is checked separately.
+- Removed the leftover smoke-test folder.

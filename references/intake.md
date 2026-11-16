@@ -2,6 +2,24 @@
 
 Goal: turn a one-line idea into `docs/spec.md` that the user approves, without interrogating them.
 
+## 0. The trusted workspace (always)
+
+The first question, every time the skill is used, is where the project lives:
+
+> Which folder should I use as the trusted workspace for this agent? Everything I create —
+> code, docs, the virtual environment, eval runs — will stay inside it.
+> *(default: a new folder `<agent-slug>` inside the current folder)*
+
+- Ask it in the same message as the blocking questions below; it does not count toward their
+  limit of five. If the user already named a folder, confirm it instead.
+- Use an absolute path. If the folder does not exist, create it only after the user confirms.
+- Run `forge.py init --project <workspace> ...` there; the path is recorded in
+  `forge/state.json`.
+- From then on, create, edit, install and run things only inside it. Anything outside (an
+  existing codebase to integrate, a dataset, a system-wide install) needs the user's OK first.
+- If the workspace is inside a git repository, say so; the user may want the agent in its own
+  repository.
+
 ## 1. Restate the idea
 
 Write one sentence: *"An agent that <does what> for <whom> so that <outcome>."* If you cannot
@@ -78,6 +96,7 @@ Show the user a short summary, not the whole file:
 - the assumptions you made (numbered, so they can say "change 3")
 - open questions, if any
 - the tier
+- the trusted workspace (absolute path)
 
 Ask for approval. On approval run `forge.py approve spec`. If they change something, update the
 spec first, then record approval.

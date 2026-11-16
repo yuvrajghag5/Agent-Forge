@@ -44,6 +44,7 @@ agent-forge/
 
 | # | Phase | Produces in the target project | Gate |
 |---|---|---|---|
+| 0 | Trusted workspace (every use) | `forge/state.json` → `workspace` | user named or confirmed the folder |
 | 1 | Intake and spec | `docs/spec.md` | **Checkpoint 1: spec approved** |
 | 2 | Shape | `docs/design.md` §Shape | no simpler rung works |
 | 3 | Evals first | `evals/cases.jsonl` | tier's case minimums |

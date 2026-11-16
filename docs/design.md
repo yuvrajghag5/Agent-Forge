@@ -82,6 +82,14 @@ command, stops, and waits for the user to paste the output. Chosen from the user
 Generated agents call models through one module, so switching provider, or moving to a local
 model, is a configuration change checked by the evals.
 
+### D13. A trusted workspace, asked every time
+Every use of the skill starts by asking the user which folder is the trusted workspace for the
+project (with a default). All files, the virtual environment, eval runs and commands stay inside
+it; anything outside needs the user's OK. The path is recorded in `forge/state.json`, confirmed
+on resume, and `forge.py status` warns when it is run from a different folder. Building an agent
+creates files, installs packages and runs code, so one explicit boundary keeps that work away from
+unrelated files and makes each action easy to review.
+
 ## 4. What makes it different
 
 Not scaffolding. The value is **agent-specific judgment made repeatable**: the shape ladder

@@ -4,4 +4,4 @@ focus: trace
 weight: 1
 ---
 
-The response asks the user no more than five questions, all in a single message.
+The response asks no more than five intake questions (not counting the question about the trusted workspace), all in a single message.

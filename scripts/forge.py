@@ -125,6 +125,7 @@ def cmd_init(args: argparse.Namespace) -> None:
     state = {
         "schema_version": 1,
         "agent_name": args.name,
+        "workspace": str(project),
         "tier": args.tier,
         "execution_mode": args.mode,
         "phase": "intake",
@@ -145,7 +146,8 @@ def cmd_init(args: argparse.Namespace) -> None:
     }
     save_state(project, state)
 
-    print(f"Initialised agent-forge project '{args.name}' in {project}")
+    print(f"Initialised agent-forge project '{args.name}'")
+    print(f"Trusted workspace: {project}")
     print(f"Tier: {args.tier}   Execution mode: {args.mode}")
     for rel in created:
         print(f"  created  {rel}")
@@ -162,6 +164,11 @@ def cmd_status(args: argparse.Namespace) -> None:
 
     print(f"Agent: {state.get('agent_name')}   Tier: {state.get('tier')}   "
           f"Mode: {state.get('execution_mode')}")
+    recorded = state.get("workspace")
+    print(f"Trusted workspace: {recorded or 'not recorded'}")
+    if recorded and Path(recorded).resolve() != project:
+        print(f"WARNING: running from {project}, which is not the recorded workspace. "
+              "Confirm with the user which folder to use before changing anything.")
     if phase == "done":
         print("Phase: all phases done")
     else:
