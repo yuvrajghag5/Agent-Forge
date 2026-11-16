@@ -13,7 +13,7 @@ agent-forge/
   requirements.txt               no dependencies
   docs/                          project write-ups (not used by the skill at run time)
     research.md  agent-lifecycle.md  design.md  architecture.md  phase.md  tech.md  changes.md
-  SKILL.md                       trigger description, principles, 11-phase flow, checkpoints
+  SKILL.md                       trigger description, principles, 12-phase flow, checkpoints
   references/                    loaded one at a time, when the phase is reached
     intake.md                    phase 1: blocking vs defaultable questions, spec, checkpoint 1
     shape-ladder.md              phase 2: single call -> workflow -> agent -> multi-agent
@@ -26,6 +26,7 @@ agent-forge/
     ops.md                       phase 10: tracing, metrics, reliability, red-team
     readiness-gate.md            phase 11a: tier checks
     handover.md                  phase 11b: AGENTS.md, rollout plan, handover report
+    frontend.md                  phase 12: interface plan, critique against defaults, safety, quality floor
   assets/templates/              copied into the target project by forge.py init
     spec.md  design.md  threat-model.md  rollout.md  progress.md
     AGENTS.md  READINESS.md  tools.json  eval_config.json  cases.jsonl
@@ -56,8 +57,9 @@ agent-forge/
 | 9 | Build against evals | agent + `evals/results/` | tier threshold reached |
 | 10 | Observability and ops | tracing, limits, red-team fixes | runs explainable |
 | 11 | Gate and handover | `READINESS.md`, `AGENTS.md`, `docs/rollout.md` | **Checkpoint 3: accepted** |
+| 12 | Frontend | web interface, `docs/frontend.md` | **Checkpoint 4: interface accepted** |
 
-`forge.py advance` refuses to leave phases 1, 5 and 11 until the matching checkpoint is approved.
+`forge.py advance` refuses to leave phases 1, 5, 11 and 12 until the matching checkpoint is approved.
 
 ## 3. Target project layout (created by `forge.py init`)
 

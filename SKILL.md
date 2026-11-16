@@ -1,6 +1,6 @@
 ---
 name: agent-forge
-description: Builds production-grade AI agents end to end from a project idea. Turns the idea into a spec, picks the simplest design that works (single LLM call, workflow, single agent or multi-agent), chooses the best-suited framework itself, writes evals before code, threat-models every tool, sets up an isolated virtual environment pinned to the approved stack, then builds, verifies and hands over an agent that passes a readiness gate (prototype, pilot or production). Use this skill whenever the user wants to build, create, design, plan or scaffold an AI agent, agentic system, LLM-powered assistant, copilot or chatbot that uses tools, a multi-agent system, or any automation where an LLM decides or takes actions, even if they describe the idea in one line ("an agent that triages my support tickets", "build me a research bot") and never say "agent". Also use it to take an existing agent prototype to production (evals, guardrails, tracing, durability). Do not use it for operating an existing agent, apps with no LLM in them, or training ML models.
+description: Builds production-grade AI agents end to end from a project idea. Turns the idea into a spec, picks the simplest design that works (single LLM call, workflow, single agent or multi-agent), chooses the best-suited framework itself, writes evals before code, threat-models every tool, sets up an isolated virtual environment pinned to the approved stack, then builds, verifies and hands over an agent that passes a readiness gate (prototype, pilot or production), and finally gives it a distinctive, safe web interface designed around what the agent does. Use this skill whenever the user wants to build, create, design, plan or scaffold an AI agent, agentic system, LLM-powered assistant, copilot or chatbot that uses tools, a multi-agent system, or any automation where an LLM decides or takes actions, even if they describe the idea in one line ("an agent that triages my support tickets", "build me a research bot") and never say "agent". Also use it to take an existing agent prototype to production (evals, guardrails, tracing, durability). Do not use it for operating an existing agent, apps with no LLM in them, or training ML models.
 ---
 
 # Agent Forge
@@ -20,7 +20,7 @@ the work done when the code only *looks* done. Industry practice points the othe
 - Prompt injection is not solved, so **security is designed in**, by limiting what each session
   can reach and do, not bolted on later.
 
-This skill turns that into eleven phases. Each phase produces a file and passes a gate, so the work
+This skill turns that into twelve phases. Each phase produces a file and passes a gate, so the work
 can be checked, resumed in a later session, and trusted.
 
 ## Principles to hold throughout
@@ -89,7 +89,8 @@ All of it lives inside the trusted workspace the user chose.
   .env.example            every variable the agent needs, no values
   AGENTS.md               how any coding agent should maintain this agent
   READINESS.md            readiness gate report
-  src/ ...                the agent itself (layout depends on the framework)
+  docs/frontend.md        interface plan, critique and result (Phase 12)
+  src/ ...                the agent itself (layout depends on the framework), including its UI
 ```
 
 ## The phases
@@ -107,6 +108,7 @@ All of it lives inside the trusted workspace the user chose.
 | 9 | Build against evals | `references/evals.md` (loop section) | working agent, eval results | Tier threshold reached |
 | 10 | Observability and ops | `references/ops.md` | tracing, limits, red-team fixes | Any run explainable from its trace |
 | 11 | Gate and handover | `references/readiness-gate.md`, `references/handover.md` | `READINESS.md`, `AGENTS.md`, `docs/rollout.md`, README | **Checkpoint 3: user accepts** |
+| 12 | Frontend | `references/frontend.md` | web interface, `docs/frontend.md` | **Checkpoint 4: user accepts the interface** |
 
 Read each reference when you reach its phase, not before; they are long and only one is needed at
 a time. Advance with `python <skill-dir>/scripts/forge.py advance`, which refuses to pass a
@@ -237,6 +239,24 @@ operating loop, a runbook). Then hand over using the report format in `reference
 
 If the gate does not pass, do not call the agent ready. Report what passed, what failed, and what
 it would take to close the gap.
+
+### 12. Frontend
+
+Give the agent an interface designed around what it does, not a generic dashboard. Start from the
+agent's subject (its materials, instruments and vocabulary), write a compact plan in
+`docs/frontend.md` (a 4–6 colour palette with named hex values, display, body and utility
+typefaces, an ASCII wireframe, and one signature element that shows something true about how the
+agent works), then critique the plan: anything you would have produced for any agent gets
+replaced. Spend the boldness on the signature; keep the rest quiet.
+
+Every agent interface needs: a start action, live progress with readable decisions, the evidence
+collected so far, approvals (when the agent has them), the result with its status and limitations,
+designed failure and empty states, history, and a clean stop. Treat everything the agent read as
+untrusted: escape it, render Markdown safely, set a Content Security Policy, bind local servers to
+127.0.0.1 with a host check and a per-start token. Build to the quality floor: works on a phone,
+visible keyboard focus, reduced motion respected, meaning never carried by colour alone. Keep
+new dependencies to a minimum; any you add follow Phase 6. Show the result to the user and record
+acceptance with `forge.py approve ui`.
 
 ## When the user is not available
 

@@ -33,12 +33,13 @@ PHASES = [
     ("build", "Build against evals", "references/evals.md (section 7)"),
     ("ops", "Observability and ops", "references/ops.md"),
     ("gate", "Gate and handover", "references/readiness-gate.md, references/handover.md"),
+    ("frontend", "Frontend", "references/frontend.md"),
 ]
 PHASE_IDS = [p[0] for p in PHASES]
 
 # A phase cannot be marked done until this checkpoint has been approved.
-CHECKPOINT_AFTER = {"intake": "spec", "framework": "design", "gate": "gate"}
-CHECKPOINTS = ["spec", "design", "gate"]
+CHECKPOINT_AFTER = {"intake": "spec", "framework": "design", "gate": "gate", "frontend": "ui"}
+CHECKPOINTS = ["spec", "design", "gate", "ui"]
 TIERS = ["prototype", "pilot", "production"]
 MODES = ["agent_runs", "human_runs"]
 

@@ -90,6 +90,16 @@ on resume, and `forge.py status` warns when it is run from a different folder. B
 creates files, installs packages and runs code, so one explicit boundary keeps that work away from
 unrelated files and makes each action easy to review.
 
+### D14. A designed interface as the last phase
+Phase 12 gives the agent a web interface. It comes last so the interface presents a measured agent
+rather than hiding an unverified one. The method: ground the design in the agent's subject, plan
+compact tokens (palette, type roles, wireframe, one signature element that shows something true
+about the agent), critique the plan against the looks generated designs default to, then build to
+a quality floor. Agent-specific rules are part of it: show decisions and evidence honestly, design
+approval screens, and treat everything the agent read as untrusted (escaping, safe Markdown, a
+Content Security Policy, a local server bound to 127.0.0.1 with a host check and a per-start
+token). Checkpoint 4 is the user accepting the interface.
+
 ## 4. What makes it different
 
 Not scaffolding. The value is **agent-specific judgment made repeatable**: the shape ladder

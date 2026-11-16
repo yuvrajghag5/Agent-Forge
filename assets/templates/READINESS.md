@@ -36,6 +36,14 @@ with evidence. Tick only what you verified. "N/A" with a reason is allowed.
 - [ ] Rollout plan with stage exit criteria agreed with the owner
 - [ ] Runbook covers disabling, rollback, credential rotation and incidents
 
+## Frontend review (Phase 12; not part of the tier gate)
+
+- [ ] Untrusted text is escaped; Markdown rendered by an escaping renderer; links http(s) only
+- [ ] Content Security Policy set; no inline scripts
+- [ ] Local server bound to 127.0.0.1 with a Host check and a per-start token (tested)
+- [ ] Start, live progress, result, failure, empty, history and stop states all designed
+- [ ] Works at phone width; visible keyboard focus; reduced motion respected; meaning not by colour alone
+
 ## Known failures
 
 (failure clusters still open, with causes)

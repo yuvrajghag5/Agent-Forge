@@ -104,3 +104,25 @@ Per phase: 1. what was built, 2. issues faced, 3. how they were solved.
 **3. How they were solved**
 - The limit now applies to intake questions only; the workspace question is checked separately.
 - Removed the leftover smoke-test folder.
+
+## Phase 2d — Frontend phase (Nov 2026)
+
+**1. Built**
+- New **Phase 12 Frontend** after the gate; the skill now has 12 phases and 4 checkpoints
+  (Checkpoint 4: the user accepts the interface, `forge.py approve ui`).
+- `references/frontend.md`: decide what the interface is for; choose the smallest stack; plan
+  palette, type roles, wireframe and one signature element grounded in the agent's subject;
+  critique the plan against common generated-design defaults; what every agent interface needs
+  (start, live progress, evidence, approvals, result, failure, history, stop); safety rules for
+  untrusted content and local servers; quality floor; interface copy; verification.
+- `READINESS.md` template: a frontend review checklist (not part of the tier gate).
+
+**2. Issues faced**
+- A generic design method does not cover what is specific to agents: decisions in progress,
+  approvals, and text from untrusted sources shown in a browser.
+- Building the interface early would put polish on an unverified agent.
+
+**3. How they were solved**
+- Agent-specific sections (live decisions, approval screens, XSS and CSRF-style protections for
+  local servers) added to the method.
+- The phase is placed last, after the readiness gate.

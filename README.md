@@ -12,7 +12,7 @@ instead of jumping straight to code.
 
 It always starts by asking which folder is the **trusted workspace** for the project; everything it
 creates, installs and runs stays inside that folder. Then the coding agent takes the idea through
-eleven phases, with three human checkpoints:
+twelve phases, with four human checkpoints:
 
 | # | Phase | Output |
 |---|---|---|
@@ -27,6 +27,7 @@ eleven phases, with three human checkpoints:
 | 9 | Build against evals | baseline, then fix failure clusters one change at a time |
 | 10 | Observability and ops | tracing, limits, red-team pass |
 | 11 | Gate and handover | readiness report, AGENTS.md, rollout plan — **checkpoint** |
+| 12 | Frontend | a distinctive, safe web interface designed around the agent — **checkpoint** |
 
 ## Layout
 
